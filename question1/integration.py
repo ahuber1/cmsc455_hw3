@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import numpy.polynomial.legendre as leg
+from gaulegf import gaulegf
 
 def getCoordinates(minimum, maximum, numVals, function):
 	step = (maximum - minimum + 0.0) / numVals
@@ -29,16 +30,11 @@ def printLine(integrationMethod, numPoints, computedValue, error):
 	errorStr = errorStr.rjust(14, ' ')
 	print '%s   %s   %s   %s' % (integrationMethodStr, numPointsStr, computedValueStr, errorStr)
 
-def w(x):
-	val = 2 / ((1 - (x ** 2)) * (math.cos(x) ** 2))
-	print val
-	return val
-
-def gaussLegendre(x, y):
-	area = 0
-
-	for i in range(len(x)):
-		area = area + w(x[i]) * y[i]
+def gaussLegendre(a, b, n, function):
+	x, w = gaulegf(a, b, n)
+	area = 0.0
+	for i in range(1, n + 1):
+		area = area + w[i] * function(x[i])
 
 	return area
 
@@ -55,8 +51,8 @@ trap_32 = np.trapz(y_32, x=x_32)
 trap_64 = np.trapz(y_64, x=x_64)
 trap_128 = np.trapz(y_128, x=x_128)
 
-gauss_8 = gaussLegendre(x_8, y_8)
-gauss_16 = gaussLegendre(x_16, y_16)
+gauss_8 = gaussLegendre(0, 1, 8, math.sin)
+gauss_16 = gaussLegendre(0, 1, 16, math.sin)
 
 print 'Exact Solution: %.2f' % actualArea
 print ''
