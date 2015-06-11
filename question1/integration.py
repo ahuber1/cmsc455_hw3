@@ -21,8 +21,8 @@ def calculateError(actualArea, observedArea):
 def printLine(integrationMethod, numPoints, computedValue, error):
 	integrationMethodStr = integrationMethod
 	numPointsStr = str(numPoints)
-	computedValueStr = '{:.5}'.format(computedValue)
-	errorStr = '{:.5}'.format(error)
+	computedValueStr = '{:.5f}'.format(computedValue)
+	errorStr = '{:.10f}'.format(error)
 
 	integrationMethodStr = integrationMethodStr.rjust(14, ' ')
 	numPointsStr = numPointsStr.rjust(14, ' ')
@@ -54,6 +54,7 @@ trap_128 = np.trapz(y_128, x=x_128)
 gauss_8 = gaussLegendre(0, 1, 8, math.sin)
 gauss_16 = gaussLegendre(0, 1, 16, math.sin)
 
+print ''
 print 'Exact Solution: %.2f' % actualArea
 print ''
 print 'Integr. Method   Num. of Points   Computed Value            Error'
@@ -64,3 +65,4 @@ printLine('Trapezoidal', 64, trap_64, calculateError(actualArea, trap_64))
 printLine('Trapezoidal', 128, trap_128, calculateError(actualArea, trap_128))
 printLine('Gauss-Legendre', 8, gauss_8, calculateError(actualArea, gauss_8))
 printLine('Gauss-Legendre', 16, gauss_16, calculateError(actualArea, gauss_16))
+print ''

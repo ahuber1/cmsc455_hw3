@@ -1,3 +1,5 @@
+import time
+
 # the left half of the equation for circle 1
 def circle1(x, y):
 	return ((x - 2.0) ** 2.0) + ((y - 2.0) ** 2.0)
@@ -38,19 +40,16 @@ def count(gridSeparation):
 	lowest_y = lowest_x
 	highest_y = highest_x
 	counter = 0
-	numIter = ((highest_x - lowest_x) / gridSeparation) ** 2
-	iterCount = 0
 	x = lowest_x
-
+	startTime = int(round(time.time() * 1000))
 	while x <= highest_x:
 		y = lowest_y
 		while y <= highest_y:
 			counter += 1.0 if test(x, y) else 0.0
 			y += gridSeparation
-			iterCount += 1
-			if iterCount % 10000 == 0:
-				progress = (iterCount / numIter) * 100
-				print 'Progress (grid_size={0}) --> {1:.2f}%\r'.format(gridSeparation, progress),
+			if int(round(time.time() * 1000)) - startTime >= 10000:
+				x = highest_x
+				counter ==  0
 		x += gridSeparation
 	print ' ' * 50 + '\r',
 	return counter
@@ -63,16 +62,27 @@ def area(gridSeparation):
 
 blockSizes = [0.1, 0.01, 0.001, 0.0001]
 
+print ''
+print 'NOTE: There is a timeout of 10 seconds. If the area is not calculated'
+print '      within 10 seconds, the computation is skipped.'
+print '' 
 print 'Block Size   Calculated Area'
 print '----------   ---------------'
 
 for size in blockSizes:
 	a = area(size)
 
-	sizeStr = '{0:.04f}'.format(size)
-	areaStr = '{0:.03f}'.format(a)
+	sizeStr = ''
+	areaStr = ''
 
+	sizeStr = '{0}'.format(size)
 	sizeStr = sizeStr.rjust(10, ' ')
-	areaStr = areaStr.rjust(15, ' ')
+
+	if a > 0:
+		areaStr = '{0:.03f}'.format(a).rjust(15, ' ')
+	else:
+		areaStr = 'Timeout'.rjust(15, ' ')
 
 	print '%s   %s' % (sizeStr, areaStr)
+
+print ''

@@ -1,0 +1,26 @@
+
+-----------------------------------QUESTION 1-----------------------------------
+
+Exact Solution: 0.46
+
+Integr. Method   Num. of Points   Computed Value            Error
+--------------   --------------   --------------   --------------
+   Trapezoidal               16          0.45955    -0.0001496509
+   Trapezoidal               32          0.45966    -0.0000374109
+   Trapezoidal               64          0.45969    -0.0000093526
+   Trapezoidal              128          0.45970    -0.0000023381
+Gauss-Legendre                8          0.45970    -0.0000000000
+Gauss-Legendre               16          0.45970    -0.0000000000
+
+-----------------------------------QUESTION 2-----------------------------------
+
+NOTE: There is a timeout of 10 seconds. If the area is not calculated
+      within 10 seconds, the computation is skipped.
+
+Block Size   Calculated Area
+----------   ---------------
+                                                         0.1             8.070
+                                                        0.01             8.123
+                                                       0.001           Timeout
+                                                      0.0001           Timeout
+
